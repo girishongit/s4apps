@@ -13,6 +13,8 @@ public class Config {
 	  private String hdbpassword;
 	  private String hdbhost;
 	  private String hdbport;
+	  private String hdbschema;
+	  
 	public String getHdbuser() {
 		return hdbuser;
 	}
@@ -36,6 +38,12 @@ public class Config {
 	}
 	public void setHdbport(String hdbport) {
 		this.hdbport = hdbport;
+	}
+	public String getHdbschema() {
+		return hdbschema;
+	}
+	public void setHdbschema(String hdbschema) {
+		this.hdbschema = hdbschema;
 	}
 	  
 

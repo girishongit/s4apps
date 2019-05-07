@@ -26,6 +26,8 @@ public class HDBConfig {
    	String DB_PASSWORD = "";
    	String DB_HOST = "";
    	String DB_PORT = "";
+   	String DB_READ_CONNECTION_URL = "";
+   	String DB_SCHEMA = "";
 	
    	try {
    		if(System.getenv("VCAP_SERVICES") != null)
@@ -36,6 +38,7 @@ public class HDBConfig {
    	    	DB_PASSWORD = arr.getJSONObject(0).getJSONObject("credentials").getString("password");
    	    	DB_HOST = arr.getJSONObject(0).getJSONObject("credentials").getString("host").split(",")[0];
    	    	DB_PORT = arr.getJSONObject(0).getJSONObject("credentials").getString("port");
+   	    	DB_READ_CONNECTION_URL = "jdbc:sap://" + DB_HOST + ":" + DB_PORT;
    		}
    		else
    		{
@@ -43,8 +46,10 @@ public class HDBConfig {
    			DB_PASSWORD = localconfig.getHdbpassword();
    			DB_HOST		= localconfig.getHdbhost();
    			DB_PORT		= localconfig.getHdbport();
+   			DB_SCHEMA	= localconfig.getHdbschema();
+   			DB_READ_CONNECTION_URL = "jdbc:sap://" + DB_HOST + ":" + DB_PORT+"/?currentschema="+DB_SCHEMA;
    		}
-   	    	String DB_READ_CONNECTION_URL = "jdbc:sap://" + DB_HOST + ":" + DB_PORT;
+   	    	
 	 
 				dataSource.setDriverClassName("com.sap.db.jdbc.Driver");
 				dataSource.setUrl(DB_READ_CONNECTION_URL);

@@ -18,5 +18,10 @@
     "name": "hdbport",
     "type": "java.lang.String",
     "description": "A description for 'hdbport'"
+  },
+  {
+    "name": "hdbschema",
+    "type": "java.lang.String",
+    "description": "A description for 'hdbschema'"
   }
 ]}
