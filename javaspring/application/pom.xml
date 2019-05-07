@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
@@ -138,7 +138,7 @@
             <plugin>
                 <groupId>com.sap.cloud.s4hana.plugins</groupId>
                 <artifactId>s4sdk-maven-plugin</artifactId>
-                <version>2.15.0</version>
+                <version>2.13.3</version>
                 <executions>
                     <execution>
                         <goals>
@@ -153,7 +153,7 @@
 
                             To learn more, visit: https://blogs.sap.com/2018/10/23/usage-analytics-s4sdk/
                             -->
-                            <salt />
+                            <salt>c41483b7e4515fd0ee67436d5c7c5b9ff86f869c89e276783a1c64df82534db4</salt>
                         </configuration>
                     </execution>
                 </executions>
