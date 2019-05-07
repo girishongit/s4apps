@@ -54,7 +54,7 @@ modules:
     type: java
     path: spring
     parameters:
-      memory: 512M
+      memory: 1024M
     provides:
       - name: spring_api
         properties:
