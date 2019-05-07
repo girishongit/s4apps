@@ -37,7 +37,7 @@ modules:
       build-result: 'target/*.jar'
   - name: SpringBoot
     type: java
-    path: SpringBoot
+    path: spring-boot
     parameters:
       memory: 512M
     provides:
