@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
@@ -114,6 +114,54 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-configuration-processor</artifactId>
+        	<optional>true</optional>
+        </dependency>
+        <dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-configuration-processor</artifactId>
+        	<optional>true</optional>
+        </dependency>
+        
+        
+        <!--  Custom Libraries add here <GIRISH> -->
+        
+        <!-- to parse JSON objects -->
+        <dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180130</version>
+		</dependency>
+        
+        <!-- Spring JDBC -->
+    	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.tomcat</groupId>
+					<artifactId>tomcat-jdbc</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<!-- Apache Commons DBCP connection pool -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+        
+        
+        <!-- HANA HDB JDBC driver -->
+    	<dependency>
+    	  <groupId>com.sap.cloud.db.jdbc</groupId>
+    	  <artifactId>ngdbc</artifactId>
+    	  <version>2.4.51</version>
+    	</dependency>
+        
     </dependencies>
 
     <build>
@@ -153,7 +201,7 @@
 
                             To learn more, visit: https://blogs.sap.com/2018/10/23/usage-analytics-s4sdk/
                             -->
-                            <salt />
+                            <salt>7122624b5c0ae7a0b76ab280d249434bd01f771e0b0df7980dbcf45169874c75</salt>
                         </configuration>
                     </execution>
                 </executions>

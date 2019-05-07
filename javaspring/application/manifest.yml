@@ -1,0 +1,8 @@
+---
+applications:
+- name: cg-pbs-customerprofile
+  memory: 1024M
+  host: cg-pbs-customerprofile
+  domain: cfapps.eu10.hana.ondemand.com
+  services:
+  - customer-hdi
