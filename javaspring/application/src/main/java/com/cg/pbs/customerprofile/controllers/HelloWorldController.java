@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sap.cloud.sdk.cloudplatform.logging.CloudLoggerFactory;
-import com.sap.cloud.security.xsuaa.token.Token;
 import com.cg.pbs.customerprofile.LocalConfig;
 import com.cg.pbs.customerprofile.DAOImpl.CustomerProfileDAOImpl;
 import com.cg.pbs.customerprofile.models.HelloWorldResponse;
 import com.cg.pbs.customerprofile.models.Tables;
+import com.sap.cloud.sdk.cloudplatform.logging.CloudLoggerFactory;
 
 @RestController
 @RequestMapping( "/test" )
@@ -56,7 +54,7 @@ public class HelloWorldController
         return new ResponseEntity<List<Tables>>(tablelist, HttpStatus.OK);
     }
     
-    @GetMapping("/token")
+   /* @GetMapping("/token")
 	public Map<String, String> message(@AuthenticationPrincipal Token token) {
 		Map<String, String> result = new HashMap<>();
 		result.put("grant type", token.getGrantType());
@@ -70,6 +68,6 @@ public class HelloWorldController
 		result.put("scopes", String.valueOf(token.getScopes()));
 
 		return result;
-	}
+	}*/
     
 }

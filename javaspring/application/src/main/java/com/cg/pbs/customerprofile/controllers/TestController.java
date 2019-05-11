@@ -1,18 +1,18 @@
 package com.cg.pbs.customerprofile.controllers;
 
 
-import java.util.HashMap;
+/*import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sap.cloud.security.xsuaa.token.Token;
+import com.sap.cloud.security.xsuaa.token.Token;*/
 
-@RestController
+//@RestController
 public class TestController {
-
+/*
 	@GetMapping("/hello-token")
 	public Map<String, String> message(@AuthenticationPrincipal Token token) {
 		Map<String, String> result = new HashMap<>();
@@ -27,5 +27,5 @@ public class TestController {
 		result.put("scopes", String.valueOf(token.getScopes()));
 
 		return result;
-	}
+	}*/
 }
