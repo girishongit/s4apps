@@ -16,7 +16,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 public class HDBConfig {
 
 	@Autowired
-    private Config localconfig;
+    private LocalConfig localconfig;
 	
 	@Bean
 	public DataSource getDataSource() {
@@ -44,10 +44,7 @@ public class HDBConfig {
    		{
    			DB_USERNAME = localconfig.getHdbuser();
    			DB_PASSWORD = localconfig.getHdbpassword();
-   			DB_HOST		= localconfig.getHdbhost();
-   			DB_PORT		= localconfig.getHdbport();
-   			DB_SCHEMA	= localconfig.getHdbschema();
-   			DB_READ_CONNECTION_URL = "jdbc:sap://" + DB_HOST + ":" + DB_PORT+"/?currentschema="+DB_SCHEMA;
+   			DB_READ_CONNECTION_URL = localconfig.getHdburl();
    		}
    	    	
 	 

@@ -1,0 +1,18 @@
+applications:
+- name: cg-pbs-approuter
+  host: cg-pbs-approuter 
+  domain: cfapps.eu10.hana.ondemand.com 
+  memory: 128M
+  path: approuter
+  buildpack: nodejs_buildpack
+  services:
+    - xsuaa-authentication
+  env: 
+    destinations: > 
+     [ 
+       { 
+         "name":"customer-profile-app", 
+         "url":"https://cg-pbs-customerprofile.cfapps.eu10.hana.ondemand.com", 
+         "forwardAuthToken": true 
+       } 
+     ] 

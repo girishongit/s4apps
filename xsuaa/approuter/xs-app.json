@@ -1,0 +1,20 @@
+{
+  "welcomeFile": "index.html",
+  "routes": [
+    {
+      "source": "^/customerprofile/api",
+      "target": "/api",
+      "destination": "customer-profile-app"
+    },
+    {
+      "source": "^/customerprofile",
+      "target": "/test",
+      "destination": "customer-profile-app"
+    },
+    {
+      "source": "^/",
+      "target": "/hello-token",
+      "destination": "customer-profile-app"
+    }
+  ]
+}

@@ -1,10 +1,6 @@
 server:
   port: 8080
 
-  
-
-hdbuser: SBSS_72605152135315005199265068499664068388648439365788472892001528384
-hdbpassword: Zj0N_HRW2iuF13sX5pFuHg8uXslcO2aPv1LFdefRo65NIbCdPvVJ8Z-eHYCz.6AnDz7O0wVlBvgIIW_R5z-i_FshIKwwmYHVzYGfmrQ0BDWGs3cT.W1quS3WHKiWlH7R
-hdbhost: 10.253.93.93
-hdbport: 30041
-hdbschema: CUSTOMER
+hdbuser: GBANGALO
+hdbpassword: 
+hdburl: jdbc:sap://localhost:30015/?currentschema=CUSTOMER
