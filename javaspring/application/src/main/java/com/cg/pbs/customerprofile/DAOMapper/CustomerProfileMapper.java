@@ -30,7 +30,7 @@ public class CustomerProfileMapper implements RowMapper<CustomerProfile> {
 		 	cp.setCountrycode(row.getInt("COUNTRY_CODE"));
 		 	cp.setCustomerid(row.getInt("CUSTOMERID"));
 		 	
-		 	cp.addValues(new SubProfileValues(row.getInt("BRAND_ID"), row.getInt("SUBPROFILE"), row.getString("VALUE")));	 
+		 	cp.addValues(new SubProfileValues(row.getInt("SUBPROFILE"), row.getString("VALUE")));	 
 		 	
 		 	cp.setValidfrom(row.getDate("VALID_FROM"));
 		 	cp.setValidto(row.getDate("VALID_TO"));

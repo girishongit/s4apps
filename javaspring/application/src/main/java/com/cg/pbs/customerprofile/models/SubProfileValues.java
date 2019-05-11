@@ -6,7 +6,7 @@ package com.cg.pbs.customerprofile.models;
  */
 public class SubProfileValues {
 
-		private int brandid;
+		//private int brandid;
 		private int subprofile;
 		private String value;
 		
@@ -14,17 +14,17 @@ public class SubProfileValues {
 			super();
 		}
 		
-		public SubProfileValues(int brandid, int subprofile, String value) {
-			this.brandid = brandid;
+		public SubProfileValues( int subprofile, String value) {
+			//this.brandid = brandid;
 			this.subprofile = subprofile;
 			this.value = value;
 		}
-		public int getBrandid() {
+		/*public int getBrandid() {
 			return brandid;
 		}
 		public void setBrandid(int brandid) {
 			this.brandid = brandid;
-		}
+		}*/
 		public int getSubprofile() {
 			return subprofile;
 		}
