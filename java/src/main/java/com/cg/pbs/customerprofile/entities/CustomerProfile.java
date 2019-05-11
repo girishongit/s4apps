@@ -1,74 +1,50 @@
-package com.cg.pbs.customerprofile.entities;
+namespace customerprofile.db;
+context Customer {
 
-public class CustomerProfile {
+    Entity Profile{
+    	KEY CLIENT				: Integer;
+    	KEY SORG				: String(5);
+    	KEY DELVCHL				: Integer;
+    	KEY DIV					: Integer;
+    	KEY COUNTRY_CODE		: Integer;
+    	KEY BUSINESS_AREA		: Integer;
+    	KEY PROFILE				: Integer;
+    	KEY SUBPROFILE			: Integer;
+	    	SUBPROFILE_DATATYPE	: String(10);
+    		MODIFIED_AT			: UTCTimestamp default NOW();
+    		MODIFIED_BY			: String(150);
+    }; 
+    
+    Entity ProfileText{
+    	KEY	CLIENT				: Integer;
+    	KEY ID					: Integer;
+    	KEY LANGUAGE			: String(3) 	default 'EN';
+    	KEY TYPE				: String(10);
+    		TEXT				: String(100);
+    		MODIFIED_AT			: UTCTimestamp	default NOW();
+    		MODIFIED_BY			: String(150);
+    }; 
+    
+    Entity Brands{
+        KEY ID					: Integer;
+    	    BRAND_NAME			: String(150)		default 'Delault Brand';
+    }; 
+    
+    Entity CustomerProfile{
+    	KEY CLIENT				: Integer;
+    	KEY SORG				: String(5)		default 'DEFLT';
+    	KEY DELVCHL				: Integer		default 0;
+    	KEY DIV					: Integer		default 0;
+    	KEY COUNTRY_CODE		: Integer;
+    	KEY CUSTOMERID			: Integer;
+    	KEY SUBPROFILE			: Integer;
+    	KEY	BRAND_ID			: Integer;
+    		VALUE				: String(150);
+    		VALID_FROM			: LocalDate;
+    		VALID_TO			: LocalDate;
+    		MODIFIED_AT			: UTCTimestamp	default NOW();
+    		MODIFIED_BY			: String(150);
+    };
 
-	private int customerId;
-	private int countryCode;
-	private int subProfile;
-	private String value;
-	
-	 public CustomerProfile()
-    {
-        super();
-    }
-
-	public CustomerProfile(int customerId, int countrycode, int subProfile, String value)
-    {
-        super();
-        this.customerId 	= customerId;
-        this.subProfile 	= subProfile;
-        this.countryCode	= countrycode;
-        this.value			= value;
-    }
-	
-	/**
-	 * @return the customerId
-	 */
-	public int getCustomerId() {
-		return customerId;
-	}
-	/**
-	 * @param customerId the customerId to set
-	 */
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
-	/**
-	 * @return the countryCode
-	 */
-	public int getCountryCode() {
-		return countryCode;
-	}
-	/**
-	 * @param countryCode the countryCode to set
-	 */
-	public void setCountryCode(int countryCode) {
-		this.countryCode = countryCode;
-	}
-	/**
-	 * @return the subProfile
-	 */
-	public int getSubProfile() {
-		return subProfile;
-	}
-	/**
-	 * @param subProfile the subProfile to set
-	 */
-	public void setSubProfile(int subProfile) {
-		this.subProfile = subProfile;
-	}
-	/**
-	 * @return the value
-	 */
-	public String getValue() {
-		return value;
-	}
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
-	
-}
+    
+};

@@ -50,6 +50,12 @@ modules:
           JBP_CONFIG_RESOURCE_CONFIGURATION: '[tomcat/webapps/ROOT/META-INF/context.xml: {"service_name_for_DefaultDB" : "~{hdi-container-name}"}]'
     build-parameters:
       build-result: 'target/*.jar'
+
+  
+
+
+  
+
 resources:
   - name: hdi_db
     parameters:

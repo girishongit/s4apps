@@ -1,5 +1,4 @@
 namespace customerprofile.db;
-
 context Customer {
 
     Entity Profile{
@@ -20,10 +19,15 @@ context Customer {
     	KEY	CLIENT				: Integer;
     	KEY ID					: Integer;
     	KEY LANGUAGE			: String(3) 	default 'EN';
-    	KEY TYPE				: String(10);
+    	KEY TYPE				: String(50);
     		TEXT				: String(100);
     		MODIFIED_AT			: UTCTimestamp	default NOW();
     		MODIFIED_BY			: String(150);
+    }; 
+    
+    Entity Brands{
+        KEY ID					: Integer;
+    	    BRAND_NAME			: String(150)		default 'Delault Brand';
     }; 
     
     Entity CustomerProfile{
@@ -34,13 +38,36 @@ context Customer {
     	KEY COUNTRY_CODE		: Integer;
     	KEY CUSTOMERID			: Integer;
     	KEY SUBPROFILE			: Integer;
-    	KEY	BRAND_ID			: Integer		default 1;
-    		BRAND_NAME			: String(150);
+    	KEY	BRAND_ID			: Integer;
     		VALUE				: String(150);
     		VALID_FROM			: LocalDate;
     		VALID_TO			: LocalDate;
     		MODIFIED_AT			: UTCTimestamp	default NOW();
     		MODIFIED_BY			: String(150);
+    };
+    
+    
+    View vProfile as 
+    	SELECT FROM Profile as main
+    	LEFT JOIN ProfileText as ba
+    		ON main.CLIENT = ba.CLIENT and ba.TYPE = 'BUSINESSAREA' and main.BUSINESS_AREA = ba.ID
+    	LEFT JOIN ProfileText as pr
+    		ON main.CLIENT = pr.CLIENT and pr.TYPE = 'PROFILE' and main.PROFILE = pr.ID
+    	LEFT JOIN ProfileText as spr
+    		ON main.CLIENT = spr.CLIENT and spr.TYPE = 'SUBPROFILE' and main.SUBPROFILE = spr.ID
+    {
+    	main.CLIENT 		as CLIENT,
+    	main.SORG			as SORG,
+    	main.DELVCHL		as DELVCHL,
+    	main.DIV			as DIV,
+    	main.COUNTRY_CODE	as COUNTRY_CODE,
+    	main.BUSINESS_AREA	as BUSINESS_AREA,
+    	ba.TEXT				as BUSINESS_AREA_TEXT,
+    	main.PROFILE		as PROFILE,
+    	pr.TEXT				as PROFILE_TEXT,
+    	main.SUBPROFILE		as SUBPROFILE,
+    	spr.TEXT			as SUBPROFILE_TEXT,
+    	main.SUBPROFILE_DATATYPE as SUBPROFILE_DATATYPE
     };
 
     
