@@ -34,6 +34,10 @@ after all this destination are defined in mainfest.yml along with url to be redi
 
 Then there should be package.json specifying the dependency of "@sap/approuter" and the start script if "node node_modules/@sap/approuter/approuter.js"
 
+NOw create an XSUAA service on the cloud, if doesnt exist using your xs-security.json
+cf create-service xsuaa application xsuaa-authentication -c xs-security.json
+
 one done install npm dependencies and push to cloud:
 
 using command cf push <Application-name> -f <mainfest.yml path>
+eg. xsuaa>> cf push cg-pbs-approuter -f mainfest.yml

@@ -5,7 +5,5 @@ applications:
   host: cg-pbs-customerprofile
   domain: cfapps.eu10.hana.ondemand.com
   services:
-  - my-xsuaa
   - xsuaa-authentication
   - customerprofile-hdidb-S0012117023-RWflmLuiDA2qAnZs
-  - customerprofile-xsuaa

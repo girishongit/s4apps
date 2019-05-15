@@ -1,0 +1,14 @@
+---
+# Configuration:
+# configured for EU10. For other landscapes, please adopt LANDSCAPE_APPS_DOMAIN in ../vars.yml
+# If the route is occupied, you might need to change ID in in ../vars.yml
+applications:
+# Application sap-java-buildpack-api-usage
+- name: cg-pbs-spring-secure
+  instances: 1
+  memory: 896M
+  host: cg-pbs-spring-secure
+  domain: cfapps.eu10.hana.ondemand.com
+  path: target/spring-secure-app.jar
+  services:
+    - xsuaa-authentication

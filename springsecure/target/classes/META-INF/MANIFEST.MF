@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: spring-secure-app
+Implementation-Version: 1.4.0
+Built-By: gbangalo
+Implementation-Vendor-Id: org.springframework.boot
+Build-Jdk: 1.8.0_202
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/spring-secure-app
+Created-By: Maven Integration for Eclipse
+

@@ -1,20 +1,14 @@
 {
-  "welcomeFile": "index.html",
   "routes": [
     {
-      "source": "^/customerprofile/api",
-      "target": "/api",
-      "destination": "customer-profile-app"
-    },
-    {
       "source": "^/customerprofile",
-      "target": "/test",
+      "target": "/customerprofile",
       "destination": "customer-profile-app"
     },
     {
-      "source": "^/",
-      "target": "/hello-token",
-      "destination": "customer-profile-app"
+      "source": "^/secureapp",
+      "target": "/secureapp",
+      "destination": "spring-secure"
     }
   ]
 }

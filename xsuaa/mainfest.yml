@@ -14,5 +14,10 @@ applications:
          "name":"customer-profile-app", 
          "url":"https://cg-pbs-customerprofile.cfapps.eu10.hana.ondemand.com", 
          "forwardAuthToken": true 
-       } 
+       },
+       { 
+         "name":"spring-secure", 
+         "url":"https://cg-pbs-spring-secure.cfapps.eu10.hana.ondemand.com/", 
+         "forwardAuthToken": true 
+       }  
      ] 
