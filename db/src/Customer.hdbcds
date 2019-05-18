@@ -1,6 +1,6 @@
 namespace customerprofile.db;
 context Customer {
-
+ 
     Entity Profile{
     	KEY CLIENT				: Integer;
     	KEY SORG				: String(5);
