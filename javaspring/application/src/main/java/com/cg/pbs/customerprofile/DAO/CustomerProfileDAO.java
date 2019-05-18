@@ -22,11 +22,13 @@ public interface CustomerProfileDAO {
 	public HashMap<String, String> insertCustomerProfile(CustomerProfile cp);
 	//public HashMap<String, String> updateCustomerProfile(CustomerProfile cp); // We dont require this, Update can be done be delete and insert
 	public HashMap<String, String> deleteCustomerProfile(CustomerProfile cp);
-	public ProfileHierarchyTemplate getCustomerProfile(int client, int countrycode, String sorg, int delvch, int div, int customerid);
+	public ProfileHierarchyTemplate getCustomerProfile(int client, String countrycode, String sorg, int delvch, int div, int customerid);
 	
 	
 	//All function for dealing with Metadata
 	public HashMap<String, String> insertProfile(List<Profile> profile);
+	public HashMap<String, String> deleteProfile(int level, String value);
+	
 	public HashMap<String, String> insertProfileText(List<ProfileText> profiletext);
 	public HashMap<String, String> insertBrands(List<Brand> brand);
 	public List<Brand> getBrandsList();	

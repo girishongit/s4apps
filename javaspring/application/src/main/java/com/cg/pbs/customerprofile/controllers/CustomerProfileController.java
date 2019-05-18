@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,6 +45,12 @@ public class CustomerProfileController
     @Autowired
     CustomerProfileDAOImpl customerprofiledaoimpl;
 
+    @GetMapping("/getToken")
+    public ResponseEntity<String> getToken( )
+    {
+        return new ResponseEntity<String>("Ok", HttpStatus.OK);
+    }
+    
     @GetMapping("/customerlist")
     public ResponseEntity<List<CustomerProfile>> getCustomerList( )
     {
@@ -59,7 +66,7 @@ public class CustomerProfileController
     }
     
     @GetMapping("/customerprofile/{client}/{countrycode}/{sorg}/{delvch}/{div}")
-    public ResponseEntity<ProfileHierarchyTemplate> getProfileTemplate( @PathVariable int client,@PathVariable int countrycode, @PathVariable String sorg, @PathVariable int delvch, @PathVariable int div, @RequestParam final int customerid )
+    public ResponseEntity<ProfileHierarchyTemplate> getProfileTemplate( @PathVariable int client,@PathVariable String countrycode, @PathVariable String sorg, @PathVariable int delvch, @PathVariable int div, @RequestParam final int customerid )
     {
         ProfileHierarchyTemplate template = customerprofiledaoimpl.getCustomerProfile(client, countrycode, sorg, delvch, div, customerid);
         return new ResponseEntity<ProfileHierarchyTemplate>(template, HttpStatus.OK);
@@ -97,6 +104,13 @@ public class CustomerProfileController
     public ResponseEntity<HashMap<String, String>> insertProfile(@RequestBody List<Profile> profile)
     {
     	HashMap<String, String> result = customerprofiledaoimpl.insertProfile(profile);
+        return new ResponseEntity<HashMap<String, String>>(result, HttpStatus.OK);
+    }
+    
+    @DeleteMapping("/profile/{level}/{value}")
+    public ResponseEntity<HashMap<String, String>> deleteProfile(@PathVariable int level,@PathVariable String value)
+    {
+    	HashMap<String, String> result = customerprofiledaoimpl.deleteProfile(level, value);
         return new ResponseEntity<HashMap<String, String>>(result, HttpStatus.OK);
     }
     

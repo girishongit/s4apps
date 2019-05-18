@@ -1,0 +1,7 @@
+applications:
+- name: cg-pbs-cp-ui
+  host: cg-pbs-cp-ui 
+  domain: cfapps.eu10.hana.ondemand.com 
+  memory: 128M
+  path: ui
+  buildpack: nodejs_buildpack

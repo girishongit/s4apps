@@ -15,7 +15,7 @@ public class CustomerProfile {
 	private String sorg;
 	private int delvchl;
 	private int div;
-	private int countrycode;
+	private String countrycode;
 	private int customerid;
 	private Date validfrom;
 	private Date validto;
@@ -47,10 +47,10 @@ public class CustomerProfile {
 	public void setDiv(int div) {
 		this.div = div;
 	}
-	public int getCountrycode() {
+	public String getCountrycode() {
 		return countrycode;
 	}
-	public void setCountrycode(int countrycode) {
+	public void setCountrycode(String countrycode) {
 		this.countrycode = countrycode;
 	}
 	public int getCustomerid() {

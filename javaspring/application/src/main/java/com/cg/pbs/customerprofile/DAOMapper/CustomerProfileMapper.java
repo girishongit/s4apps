@@ -27,7 +27,7 @@ public class CustomerProfileMapper implements RowMapper<CustomerProfile> {
 		 	cp.setSorg(row.getString("SORG"));
 		 	cp.setDelvchl(row.getInt("DELVCHL"));
 		 	cp.setDiv(row.getInt("DIV"));
-		 	cp.setCountrycode(row.getInt("COUNTRY_CODE"));
+		 	cp.setCountrycode(row.getString("COUNTRY_CODE"));
 		 	cp.setCustomerid(row.getInt("CUSTOMERID"));
 		 	
 		 	cp.addValues(new SubProfileValues(row.getInt("SUBPROFILE"), row.getString("VALUE")));	 

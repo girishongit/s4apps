@@ -3,16 +3,38 @@
   "tenant-mode": "dedicated",
   "scopes": [
     {
-      "name": "$XSAPPNAME.Display",
+      "name": "$XSAPPNAME.AppDisplay",
+      "description": "With this scope, information can be read."
+    },
+    {
+      "name": "$XSAPPNAME.AppUpdate",
+      "description": "With this scope, information can be read."
+    },
+    {
+      "name": "$XSAPPNAME.AppAdmin",
       "description": "With this scope, information can be read."
     }
   ],
 
   "role-templates": [
     {
-      "name": "AccessRole",
-      "description": "Role to call the  sap-java-buildpack-api-usage service",
-      "scope-references": ["$XSAPPNAME.Display"]
+      "name": "AppAccess",
+      "description": "Role to call the Customer Profile Application",
+      "scope-references": ["$XSAPPNAME.AppDisplay"]
+    },
+    {
+      "name": "AppModify",
+      "description": "Role to call the Customer Profile Application",
+      "scope-references": ["$XSAPPNAME.AppDisplay", "$XSAPPNAME.AppUpdate"]
+    },
+    {
+      "name": "AppAdmin",
+      "description": "Role to call the Customer Profile Application",
+      "scope-references": [
+        "$XSAPPNAME.AppDisplay",
+        "$XSAPPNAME.AppUpdate",
+        "$XSAPPNAME.AppAdmin"
+      ]
     }
   ]
 }

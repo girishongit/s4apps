@@ -1,5 +1,7 @@
 package com.cg.pbs.customerprofile;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
@@ -11,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.sap.cloud.security.xsuaa.XsuaaServiceConfigurationDefault;
 import com.sap.cloud.security.xsuaa.XsuaaServicePropertySourceFactory;
@@ -33,14 +38,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
-		http
+		http.csrf().disable().cors().and()
 			.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // session is created by approuter
 			.and()
 				.authorizeRequests()
-				.antMatchers("/customerprofile").hasAuthority("openid")
-				.anyRequest().authenticated()
-				//.anyRequest().permitAll()
+				//.antMatchers("/customerprofile").hasAuthority("openid")
+				//.anyRequest().authenticated()
+				.anyRequest().permitAll()	
 			.and()
 				.oauth2ResourceServer()
 				.jwt()
@@ -66,4 +71,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	XsuaaServiceConfigurationDefault config() {
 		return new XsuaaServiceConfigurationDefault();
 	}
+	
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		String externalurl[] = new String[] { "http://localhost:8080", "https://saprouter-ccss.ccss.capgemini.com:3243" }; 
+		
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList(externalurl));
+		configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","OPTIONS","PATCH","DELETE"));
+		configuration.setAllowCredentials(true);
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
+	
 }

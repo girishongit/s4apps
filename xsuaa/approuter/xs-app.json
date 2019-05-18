@@ -1,9 +1,15 @@
 {
+  "logout": {
+    "logoutEndpoint": "/logout",
+    "logoutPage": "/"
+  },
   "routes": [
     {
       "source": "^/customerprofile",
       "target": "/customerprofile",
-      "destination": "customer-profile-app"
+      "destination": "customer-profile-app",
+      "authenticationType": "xsuaa",
+      "scope": "$XSAPPNAME.AppDisplay"
     },
     {
       "source": "^/secureapp",

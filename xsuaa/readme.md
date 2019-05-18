@@ -17,7 +17,7 @@ Sample app json can be of the type
 {
 "source": "/rest/addressbook/testdataDestructor",
 "destination": "backend",
-"scope": "node-hello-world.Delete"
+"scope": "$XSAPPNAME.Display"
 },
 {
 "source": "/rest/.*",
@@ -30,12 +30,18 @@ Sample app json can be of the type
 ]
 }
 
+to disable csrf and authentication:
+
+"csrfProtection": true,
+"authenticationType": "xsuaa", //none
+
 after all this destination are defined in mainfest.yml along with url to be redirected
 
 Then there should be package.json specifying the dependency of "@sap/approuter" and the start script if "node node_modules/@sap/approuter/approuter.js"
 
 NOw create an XSUAA service on the cloud, if doesnt exist using your xs-security.json
 cf create-service xsuaa application xsuaa-authentication -c xs-security.json
+//cf update-service xsuaa-authentication -c xs-security.json
 
 one done install npm dependencies and push to cloud:
 

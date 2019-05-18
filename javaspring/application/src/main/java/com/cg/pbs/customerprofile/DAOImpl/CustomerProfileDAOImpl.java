@@ -155,7 +155,7 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 					ps.setString(2, cp.getSorg());
 					ps.setInt(3, cp.getDelvchl());
 					ps.setInt(4, cp.getDiv());
-					ps.setInt(5, cp.getCountrycode());
+					ps.setString(5, cp.getCountrycode());
 					ps.setInt(6, cp.getCustomerid());
 					
 					ps.setInt(7, cp.getValues().get(i).getSubprofile());
@@ -253,7 +253,7 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 					ps.setString(2, profile.get(i).getSorg());
 					ps.setInt(3, profile.get(i).getDelvchl());
 					ps.setInt(4, profile.get(i).getDiv());
-					ps.setInt(5, profile.get(i).getCountrycode());
+					ps.setString(5, profile.get(i).getCountrycode());
 					ps.setInt(6, profile.get(i).getBusinessarea());
 					ps.setInt(7, profile.get(i).getProfile());
 					ps.setInt(8, profile.get(i).getSubprofile());
@@ -329,7 +329,7 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 		return result;
 	}
 	
-	private ProfileHierarchyTemplate getProfileTemplate(int client, int countrycode, String sorg, int delvch, int div) {
+	private ProfileHierarchyTemplate getProfileTemplate(int client, String countrycode, String sorg, int delvch, int div) {
 		
 		ProfileHierarchyTemplate template = new ProfileHierarchyTemplate();
 		String result = "";
@@ -355,7 +355,7 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 			.append(escapeQuotes("SORG"))			.append(" = ")	.append(sqlString(sorg))	.append(" AND ")
 			.append(escapeQuotes("DELVCHL"))		.append(" = ")	.append(delvch)				.append(" AND ")
 			.append(escapeQuotes("DIV"))			.append(" = ")	.append(div)				.append(" AND ")
-			.append(escapeQuotes("COUNTRY_CODE"))	.append(" = ")	.append(countrycode)
+			.append(escapeQuotes("COUNTRY_CODE"))	.append(" = ")	.append(sqlString(countrycode))
 			;
 			
 		jdbcTemplate.query(sql.toString(), new ProfileHierarchyTemplateMapper(template));
@@ -364,7 +364,7 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 	}
 
 	@Override
-	public ProfileHierarchyTemplate getCustomerProfile(int client, int countrycode, String sorg, int delvch, int div, int customerid) {
+	public ProfileHierarchyTemplate getCustomerProfile(int client, String countrycode, String sorg, int delvch, int div, int customerid) {
 		
 		ProfileHierarchyTemplate hierarchy = getProfileTemplate(client, countrycode, sorg, delvch, div);
 		
@@ -387,7 +387,7 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 			.append(escapeQuotes("SORG"))			.append(" = ")	.append(sqlString(sorg))	.append(" AND ")
 			.append(escapeQuotes("DELVCHL"))		.append(" = ")	.append(delvch)				.append(" AND ")
 			.append(escapeQuotes("DIV"))			.append(" = ")	.append(div)				.append(" AND ")
-			.append(escapeQuotes("COUNTRY_CODE"))	.append(" = ")	.append(countrycode)
+			.append(escapeQuotes("COUNTRY_CODE"))	.append(" = ")	.append(sqlString(countrycode))
 			;
 		
 		jdbcTemplate.query(sql.toString(), new CustomerProfileHierarchyMapper(hierarchy));
@@ -477,6 +477,58 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 			
 		List<ProfileView> data = jdbcTemplate.query(sql.toString(), new ProfileViewMapper());
 		return data;
+		
+	}
+
+	public HashMap<String, String> deleteProfile(int level, String value) {
+		
+		HashMap<String, String> result = new HashMap<String, String>();
+        StringBuilder sql_profile = new StringBuilder();
+        StringBuilder sql_profiletext = new StringBuilder();
+        
+        String WHERE =  level == 1 ? "CLIENT" :
+        				level == 2 ? "COUNTRY_CODE":
+        				level == 3 ? "SORG":
+        				level == 4 ? "DELVCHL":
+        				level == 5 ? "DIV":
+        				level == 6 ? "BUSINESS_AREA":	
+        				level == 7 ? "PROFILE":
+        				level == 8 ? "SUBPROFILE": "";
+        
+        sql_profile
+			.append("DELETE FROM CUSTOMER.")
+			.append(escapeQuotes("customerprofile.db::Customer.Profile"))
+			.append(" WHERE ")
+			.append(WHERE).append(" = ").append(sqlString(value))
+			;
+        
+        sql_profiletext
+		.append("DELETE FROM CUSTOMER.")
+		.append(escapeQuotes("customerprofile.db::Customer.ProfileText"))
+		.append(" WHERE ")
+		.append("( TYPE = ").append(sqlString("BUSINESSAREA"))	.append("and ID NOT IN (SELECT DISTINCT BUSINESS_AREA FROM  CUSTOMER.")	.append(escapeQuotes("customerprofile.db::Customer.Profile")).append(")) OR ")
+		.append("( TYPE = ").append(sqlString("PROFILE"))		.append("and ID NOT IN (SELECT DISTINCT PROFILE FROM  CUSTOMER.")		.append(escapeQuotes("customerprofile.db::Customer.Profile")).append(")) OR ")
+		.append("( TYPE = ").append(sqlString("SUBPROFILE"))	.append("and ID NOT IN (SELECT DISTINCT SUBPROFILE FROM  CUSTOMER.")		.append(escapeQuotes("customerprofile.db::Customer.Profile")).append(")) OR ")
+		.append("( TYPE = ").append(sqlString("DIV"))			.append("and ID NOT IN (SELECT DISTINCT DIV FROM  CUSTOMER.")			.append(escapeQuotes("customerprofile.db::Customer.Profile")).append(")) OR ")
+		.append("( TYPE = ").append(sqlString("DELVCHL"))		.append("and ID NOT IN (SELECT DISTINCT DELVCHL FROM  CUSTOMER.")		.append(escapeQuotes("customerprofile.db::Customer.Profile")).append(")) OR ")
+		.append("( TYPE = ").append(sqlString("COUNTRYCODE"))	.append("and ID NOT IN (SELECT DISTINCT COUNTRY_CODE FROM  CUSTOMER.")	.append(escapeQuotes("customerprofile.db::Customer.Profile")).append("))")
+		
+		;
+		
+		try {
+			jdbcTemplate.update(sql_profile.toString());
+			jdbcTemplate.update(sql_profiletext.toString());
+			result.put("status", "Deleted Successfully");
+			result.put("code", "200");
+		}
+		catch(Exception e)
+		{
+			result.put("status", "Error");
+			result.put("error", e.toString());
+			result.put("code", "500");
+		}
+		
+		return result;
 		
 	}
 	

@@ -10,7 +10,7 @@ public class Profile {
 	private String sorg;
 	private int delvchl;
 	private int div;
-	private int countrycode;
+	private String countrycode;
 	private int businessarea;
 	private int profile;
 	private int subprofile;
@@ -40,10 +40,10 @@ public class Profile {
 	public void setDiv(int div) {
 		this.div = div;
 	}
-	public int getCountrycode() {
+	public String getCountrycode() {
 		return countrycode;
 	}
-	public void setCountrycode(int countrycode) {
+	public void setCountrycode(String countrycode) {
 		this.countrycode = countrycode;
 	}
 	public int getBusinessarea() {
