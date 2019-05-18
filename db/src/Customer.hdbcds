@@ -6,7 +6,7 @@ context Customer {
     	KEY SORG				: String(5);
     	KEY DELVCHL				: Integer;
     	KEY DIV					: Integer;
-    	KEY COUNTRY_CODE		: Integer;
+    	KEY COUNTRY_CODE		: String(5);
     	KEY BUSINESS_AREA		: Integer;
     	KEY PROFILE				: Integer;
     	KEY SUBPROFILE			: Integer;
@@ -35,7 +35,7 @@ context Customer {
     	KEY SORG				: String(5)		default 'DEFLT';
     	KEY DELVCHL				: Integer		default 0;
     	KEY DIV					: Integer		default 0;
-    	KEY COUNTRY_CODE		: Integer;
+    	KEY COUNTRY_CODE		: String(5);
     	KEY CUSTOMERID			: Integer;
     	KEY SUBPROFILE			: Integer;
     	KEY	BRAND_ID			: Integer;
