@@ -17,7 +17,7 @@ public class ProfileViewMapper implements RowMapper<ProfileView> {
 		pv.setSorg(rs.getString("SORG"));
 		pv.setDelvch(rs.getInt("DELVCHL"));
 		pv.setDiv(rs.getInt("DIV"));
-		pv.setCountrycode(rs.getInt("COUNTRY_CODE"));
+		pv.setCountrycode(rs.getString("COUNTRY_CODE"));
 		pv.setBusinessarea(rs.getInt("BUSINESS_AREA"));
 		pv.setBusinessareatext(rs.getString("BUSINESS_AREA_TEXT"));
 		pv.setProfile(rs.getInt("PROFILE"));

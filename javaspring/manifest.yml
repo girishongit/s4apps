@@ -1,7 +1,7 @@
 ---
 applications:
 
-- name: javaspring1
+- name: cg-pbs-customerprofile
   memory: 1024M
   timeout: 300
   random-route: true

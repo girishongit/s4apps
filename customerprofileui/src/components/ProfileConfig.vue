@@ -571,7 +571,7 @@ export default {
     }
   },
   created() {
-    this.loadData();
+    //this.loadData();
   }
 };
 </script>

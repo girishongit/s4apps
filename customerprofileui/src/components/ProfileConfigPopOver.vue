@@ -118,7 +118,7 @@ export default {
   },
   data() {
     return {
-      datatype: ["String", "Integer", "Boolean", "Date", "Decimal"]
+      datatype: ["String", "Integer", "Boolean", "Date", "Decimal","Free Text","Drop Down"]
     };
   },
   methods: {
@@ -203,7 +203,9 @@ export default {
 
       let profiletextpayload = [];
       for (let i = this.insertlevel; i <= 8; i++) {
-        profiletextpayload.push(this.prepareProfileText(i));
+        let val = this.prepareProfileText(i);
+        val ? profiletextpayload.push(val) : '';
+
       }
 
       https

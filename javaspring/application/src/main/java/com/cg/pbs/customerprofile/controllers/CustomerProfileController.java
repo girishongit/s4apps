@@ -6,9 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,13 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sap.cloud.sdk.cloudplatform.logging.CloudLoggerFactory;
 import com.cg.pbs.customerprofile.DAOImpl.CustomerProfileDAOImpl;
-import com.cg.pbs.customerprofile.models.Brand;
 import com.cg.pbs.customerprofile.models.CustomerProfile;
 import com.cg.pbs.customerprofile.models.Profile;
 import com.cg.pbs.customerprofile.models.ProfileHierarchyTemplate;
@@ -65,10 +61,13 @@ public class CustomerProfileController
         return new ResponseEntity<CustomerProfile>(dataList, HttpStatus.OK);
     }
     
-    @GetMapping("/customerprofile/{client}/{countrycode}/{sorg}/{delvch}/{div}")
-    public ResponseEntity<ProfileHierarchyTemplate> getProfileTemplate( @PathVariable int client,@PathVariable String countrycode, @PathVariable String sorg, @PathVariable int delvch, @PathVariable int div, @RequestParam final int customerid )
+    @GetMapping("/customerprofile/{client}/{countrycode}")
+    //@GetMapping("/customerprofile/{client}/{countrycode}/{sorg}/{delvch}/{div}")
+    //public ResponseEntity<ProfileHierarchyTemplate> getProfileTemplate( @PathVariable int client,@PathVariable String countrycode, @PathVariable String sorg, @PathVariable int delvch, @PathVariable int div, @RequestParam final int customerid )
+    public ResponseEntity<ProfileHierarchyTemplate> getProfileTemplate( @PathVariable int client,@PathVariable String countrycode, @RequestParam final int customerid )
     {
-        ProfileHierarchyTemplate template = customerprofiledaoimpl.getCustomerProfile(client, countrycode, sorg, delvch, div, customerid);
+        //ProfileHierarchyTemplate template = customerprofiledaoimpl.getCustomerProfile(client, countrycode, sorg, delvch, div, customerid);
+        ProfileHierarchyTemplate template = customerprofiledaoimpl.getCustomerProfile(client, countrycode, "0", 0, 0, customerid);
         return new ResponseEntity<ProfileHierarchyTemplate>(template, HttpStatus.OK);
     }
     

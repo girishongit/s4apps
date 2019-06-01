@@ -352,9 +352,9 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 			.append(escapeQuotes("customerprofile.db::Customer.vProfile"))
 			.append(" WHERE ")
 			.append(escapeQuotes("CLIENT"))			.append(" = ")	.append(client) 			.append(" AND ")
-			.append(escapeQuotes("SORG"))			.append(" = ")	.append(sqlString(sorg))	.append(" AND ")
-			.append(escapeQuotes("DELVCHL"))		.append(" = ")	.append(delvch)				.append(" AND ")
-			.append(escapeQuotes("DIV"))			.append(" = ")	.append(div)				.append(" AND ")
+			//.append(escapeQuotes("SORG"))			.append(" = ")	.append(sqlString(sorg))	.append(" AND ")
+			//.append(escapeQuotes("DELVCHL"))		.append(" = ")	.append(delvch)				.append(" AND ")
+			//.append(escapeQuotes("DIV"))			.append(" = ")	.append(div)				.append(" AND ")
 			.append(escapeQuotes("COUNTRY_CODE"))	.append(" = ")	.append(sqlString(countrycode))
 			;
 			
@@ -453,6 +453,7 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 		return brands;
 	}
 
+	@Override
 	public List<ProfileView> getProfileTemplateList() {
 		
 		String result = "";
@@ -480,6 +481,7 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 		
 	}
 
+	@Override
 	public HashMap<String, String> deleteProfile(int level, String value) {
 		
 		HashMap<String, String> result = new HashMap<String, String>();
@@ -510,9 +512,7 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 		.append("( TYPE = ").append(sqlString("PROFILE"))		.append("and ID NOT IN (SELECT DISTINCT PROFILE FROM  CUSTOMER.")		.append(escapeQuotes("customerprofile.db::Customer.Profile")).append(")) OR ")
 		.append("( TYPE = ").append(sqlString("SUBPROFILE"))	.append("and ID NOT IN (SELECT DISTINCT SUBPROFILE FROM  CUSTOMER.")		.append(escapeQuotes("customerprofile.db::Customer.Profile")).append(")) OR ")
 		.append("( TYPE = ").append(sqlString("DIV"))			.append("and ID NOT IN (SELECT DISTINCT DIV FROM  CUSTOMER.")			.append(escapeQuotes("customerprofile.db::Customer.Profile")).append(")) OR ")
-		.append("( TYPE = ").append(sqlString("DELVCHL"))		.append("and ID NOT IN (SELECT DISTINCT DELVCHL FROM  CUSTOMER.")		.append(escapeQuotes("customerprofile.db::Customer.Profile")).append(")) OR ")
-		.append("( TYPE = ").append(sqlString("COUNTRYCODE"))	.append("and ID NOT IN (SELECT DISTINCT COUNTRY_CODE FROM  CUSTOMER.")	.append(escapeQuotes("customerprofile.db::Customer.Profile")).append("))")
-		
+		.append("( TYPE = ").append(sqlString("DELVCHL"))		.append("and ID NOT IN (SELECT DISTINCT DELVCHL FROM  CUSTOMER.")		.append(escapeQuotes("customerprofile.db::Customer.Profile")).append("))")	
 		;
 		
 		try {

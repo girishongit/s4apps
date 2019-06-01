@@ -74,15 +74,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
-		String externalurl[] = new String[] { "http://localhost:8080", "https://saprouter-ccss.ccss.capgemini.com:3243" }; 
-		
+				
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList(externalurl));
+		configuration.setAllowedOrigins(Arrays.asList("https://resttesttest.com", "https://saprouter-ccss.ccss.capgemini.com:3243"));
 		configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","OPTIONS","PATCH","DELETE"));
+		configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "content-type", "Accept", "X-Requested-With", "remember-me", "x-xhr-logon"));
 		configuration.setAllowCredentials(true);
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
+	
+	
 	
 }

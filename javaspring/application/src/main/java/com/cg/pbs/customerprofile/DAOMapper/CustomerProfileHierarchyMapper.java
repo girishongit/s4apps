@@ -3,9 +3,7 @@ package com.cg.pbs.customerprofile.DAOMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
-import com.cg.pbs.customerprofile.models.CustomerProfile;
 import com.cg.pbs.customerprofile.models.ProfileHierarchyTemplate;
-import com.cg.pbs.customerprofile.models.SubProfileValues;
 
 /**
  * 

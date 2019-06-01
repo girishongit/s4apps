@@ -6,7 +6,7 @@ public class ProfileView {
 	private String sorg;
 	private int delvch;
 	private int div;
-	private int countrycode;
+	private String countrycode;
 	private int businessarea;
 	private String businessareatext;
 	private int profile;
@@ -38,10 +38,10 @@ public class ProfileView {
 	public void setDiv(int div) {
 		this.div = div;
 	}
-	public int getCountrycode() {
+	public String getCountrycode() {
 		return countrycode;
 	}
-	public void setCountrycode(int countrycode) {
+	public void setCountrycode(String countrycode) {
 		this.countrycode = countrycode;
 	}
 	public int getBusinessarea() {
