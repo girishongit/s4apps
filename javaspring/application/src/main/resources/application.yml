@@ -2,7 +2,7 @@ server:
   port: 8080
   servlet:
     context-path: /customerprofile
- 
+
 hdbuser: GBANGALO
 hdbpassword: Welcome1
 hdburl: jdbc:sap://localhost:30015/?currentschema=CUSTOMER

@@ -66,6 +66,44 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
         
 	}
 	
+	//only for testing
+	@Override
+	public HashMap<String, String> updateTableData(String country) {
+		
+		HashMap<String, String> result = new HashMap<String, String>();
+		
+		StringBuilder sql = new StringBuilder();
+		sql
+		.append("UPDATE CUSTOMER.")
+		.append(escapeQuotes("customerprofile.db::Customer.CustomerProfile"))
+		.append(" SET COUNTRY_CODE = ").append(sqlString(country))
+		;
+		
+		StringBuilder sql1 = new StringBuilder();
+		sql1
+		.append("UPDATE CUSTOMER.")
+		.append(escapeQuotes("customerprofile.db::Customer.Profile"))
+		.append(" SET COUNTRY_CODE = ").append(sqlString(country))
+		;
+		
+		try {
+			jdbcTemplate.update(sql.toString());
+			jdbcTemplate.update(sql1.toString());
+			result.put("status", "Updated Successfully");
+			result.put("code", "200");
+		}
+		catch(Exception e)
+		{
+			result.put("status", "Error");
+			result.put("error", e.toString());
+			result.put("code", "500");
+		}
+		
+		return result;
+		
+        
+	}
+	
 	@Override
 	public List<CustomerProfile> getCustomerList() {
 

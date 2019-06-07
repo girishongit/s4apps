@@ -10,7 +10,7 @@ public class ProfileHierarchyTemplate {
 	private String sorg;
 	private int delvch;
 	private int div;
-	private int countrycode;
+	private String countrycode;
 	private int customerid = -1;
 	private List<BusinessArea> businessArea = new ArrayList<>();
 	
@@ -53,12 +53,12 @@ public class ProfileHierarchyTemplate {
 	}
 
 
-	public int getCountrycode() {
+	public String getCountrycode() {
 		return countrycode;
 	}
 
 
-	public void setCountrycode(int countrycode) {
+	public void setCountrycode(String countrycode) {
 		this.countrycode = countrycode;
 	}
 

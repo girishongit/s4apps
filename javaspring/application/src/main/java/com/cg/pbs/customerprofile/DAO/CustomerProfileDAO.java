@@ -15,6 +15,7 @@ public interface CustomerProfileDAO {
 	
 	//All function dealing with general information
 	public List<Tables> getAvailableTables(String schema);
+	public HashMap<String, String> updateTableData(String country);
 	public List<CustomerProfile> getCustomerList();
 	public CustomerProfile getCustomerProfileDetails(int customerid);
 	

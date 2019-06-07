@@ -27,7 +27,7 @@ public class ProfileHierarchyTemplateMapper implements RowMapper<ProfileHierarch
 			hierarchy.setSorg(row.getString("SORG"));
 			hierarchy.setDelvch(row.getInt("DELVCHL"));
 			hierarchy.setDiv(row.getInt("DIV"));
-			hierarchy.setCountrycode(row.getInt("COUNTRY_CODE"));
+			hierarchy.setCountrycode(row.getString("COUNTRY_CODE"));
 			hierarchy.setHierarchy( row.getInt("BUSINESS_AREA"), row.getString("BUSINESS_AREA_TEXT"), 
 									row.getInt("PROFILE"), row.getString("PROFILE_TEXT"),
 									row.getInt("SUBPROFILE"), row.getString("SUBPROFILE_TEXT"), 
