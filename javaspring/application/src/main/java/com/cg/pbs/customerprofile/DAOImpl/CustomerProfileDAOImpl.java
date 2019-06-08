@@ -2,6 +2,8 @@ package com.cg.pbs.customerprofile.DAOImpl;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,6 +20,7 @@ import com.cg.pbs.customerprofile.DAOMapper.CustomerProfileHierarchyMapper;
 import com.cg.pbs.customerprofile.DAOMapper.CustomerProfileListMapper;
 import com.cg.pbs.customerprofile.DAOMapper.CustomerProfileMapper;
 import com.cg.pbs.customerprofile.DAOMapper.ProfileHierarchyTemplateMapper;
+import com.cg.pbs.customerprofile.DAOMapper.ProfileKeyMapper;
 import com.cg.pbs.customerprofile.DAOMapper.ProfileViewMapper;
 import com.cg.pbs.customerprofile.DAOMapper.TablesMapper;
 import com.cg.pbs.customerprofile.models.Brand;
@@ -492,7 +495,7 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 	}
 
 	@Override
-	public List<ProfileView> getProfileTemplateList() {
+	public List<ProfileView> getProfileTemplateList(int client, String countrycode) {
 		
 		String result = "";
         StringBuilder sql = new StringBuilder();
@@ -511,9 +514,19 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 			.append(escapeQuotes("SUBPROFILE_TEXT"))	.append(", ")
 			.append(escapeQuotes("SUBPROFILE_DATATYPE"))
 			.append(" FROM CUSTOMER.")
-			.append(escapeQuotes("customerprofile.db::Customer.vProfile"))
+			.append(escapeQuotes("customerprofile.db::Customer.vProfile"));
+			
+			if(client >= 0)
+			{
+				sql
+					.append("WHERE ")
+					.append(escapeQuotes("CLIENT")) 		.append(" = ") .append(client) .append(" AND ")
+					.append(escapeQuotes("COUNTRY_CODE")) 	.append(" = ") .append(sqlString(countrycode));
+			}
 			;
 			
+		sql.append(" ORDER BY CLIENT, COUNTRY_CODE, SORG, DELVCHL, DIV, BUSINESS_AREA, PROFILE, SUBPROFILE");
+		
 		List<ProfileView> data = jdbcTemplate.query(sql.toString(), new ProfileViewMapper());
 		return data;
 		
@@ -569,6 +582,169 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 		return result;
 		
 	}
+
+	@Override
+	public List<HashMap<String, Object>> getProfileKeys() {
+		
+		
+		StringBuilder sql = new StringBuilder();
+		sql
+			.append("SELECT DISTINCT ")
+			.append(escapeQuotes("CLIENT"))				.append(", ")
+			.append(escapeQuotes("COUNTRY_CODE"))	
+			.append(" FROM CUSTOMER.")
+			.append(escapeQuotes("customerprofile.db::Customer.Profile"))
+			;
+			
+		List<HashMap<String, Object>> keys = jdbcTemplate.query(sql.toString(), new ProfileKeyMapper());
+		return keys;
+		
+	}
+
+	@Override
+	public HashMap<String, String> insertProfileTemplate(List<ProfileView> profile) {
+			
+			HashMap<String, String> result = new HashMap<String, String>();
+			List<ProfileText> profiletexts = new ArrayList<ProfileText>();
+			
+	        StringBuilder sql = new StringBuilder();
+			sql
+				.append("INSERT INTO CUSTOMER. ")
+				.append(escapeQuotes("customerprofile.db::Customer.Profile"))
+				.append(" ( ")
+				.append(escapeQuotes("CLIENT"))				.append(", ")
+				.append(escapeQuotes("SORG"))				.append(", ")
+				.append(escapeQuotes("DELVCHL"))			.append(", ")
+				.append(escapeQuotes("DIV"))				.append(", ")
+				.append(escapeQuotes("COUNTRY_CODE"))		.append(", ")
+				.append(escapeQuotes("BUSINESS_AREA"))		.append(", ")
+				.append(escapeQuotes("PROFILE"))			.append(", ")
+				.append(escapeQuotes("SUBPROFILE"))			.append(", ")
+				.append(escapeQuotes("SUBPROFILE_DATATYPE")).append(", ")
+				.append(escapeQuotes("MODIFIED_AT"))		.append(", ")
+				.append(escapeQuotes("MODIFIED_BY"))
+				.append(" ) VALUES ")
+				.append("( ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_USER )")
+				;		
+			try
+			{
+				jdbcTemplate.batchUpdate(sql.toString(), new BatchPreparedStatementSetter() {
+					@Override
+					public void setValues(PreparedStatement ps, int i) throws SQLException {
+						ps.setInt(1, profile.get(i).getClient());
+						ps.setString(2, profile.get(i).getSorg());
+						ps.setInt(3, profile.get(i).getDelvch());
+						ps.setInt(4, profile.get(i).getDiv());
+						ps.setString(5, profile.get(i).getCountrycode());
+						ps.setInt(6, profile.get(i).getBusinessarea());
+						ps.setInt(7, profile.get(i).getProfile());
+						ps.setInt(8, profile.get(i).getSubprofile());
+						ps.setString(9, profile.get(i).getSubprofiledatatype());
+						profiletexts.add(new ProfileText(profile.get(i).getClient(), profile.get(i).getBusinessarea(), "BUSINESSAREA", profile.get(i).getBusinessareatext()));
+						profiletexts.add(new ProfileText(profile.get(i).getClient(), profile.get(i).getProfile(), "PROFILE", profile.get(i).getProfiletext()));
+						profiletexts.add(new ProfileText(profile.get(i).getClient(), profile.get(i).getSubprofile(), "SUBPROFILE", profile.get(i).getSubprofiletext()));
+					}
+					
+					@Override
+					public int getBatchSize() {
+						return profile.size();
+					}
+				});
+				
+				insertProfileText(profiletexts);
+				result.put("status", "Saved Successfully"); 
+				result.put("code", "200");
+			}
+			catch(Exception e)
+			{
+				result.put("status", "Error");
+				result.put("error", e.toString());
+				result.put("code", "500");
+			}
+			
+			return result;
+		}
+
+	@Override
+	public HashMap<String, String> deleteProfileTemplate(List<ProfileView> profile) {
+		
+		HashMap<String, String> result = new HashMap<String, String>();
+		StringBuilder sql = new StringBuilder();
+		StringBuilder sqlText = new StringBuilder();
+		
+		sql
+		.append("DELETE FROM CUSTOMER.")
+		.append(escapeQuotes("customerprofile.db::Customer.Profile"))
+		.append("WHERE ")
+		.append(escapeQuotes("CLIENT")) 		.append(" = ") .append("?") .append(" AND ")
+		.append(escapeQuotes("COUNTRY_CODE")) 	.append(" = ") .append("?") .append(" AND ")
+		.append(escapeQuotes("BUSINESS_AREA")) 	.append(" = ") .append("?") .append(" AND ")
+		.append(escapeQuotes("PROFILE")) 		.append(" = ") .append("?") .append(" AND ")
+		.append(escapeQuotes("SUBPROFILE")) 	.append(" = ") .append("?")
+		;
+		
+		sqlText
+		.append("DELETE FROM CUSTOMER.")
+		.append(escapeQuotes("customerprofile.db::Customer.ProfileText")).append(" as ptext " )
+		.append(" WHERE NOT EXISTS (")
+			.append("SELECT 1 FROM CUSTOMER.")
+			.append(escapeQuotes("customerprofile.db::Customer.Profile")).append(" as pval " )
+			.append(" WHERE ")
+			.append(" (ptext.ID = pval.BUSINESS_AREA  and ptext.TYPE = 'BUSINESSAREA') ").append(" OR ")
+			.append(" (ptext.ID = pval.PROFILE  and ptext.TYPE = 'PROFILE') ").append(" OR ")
+			.append(" (ptext.ID = pval.SUBPROFILE  and ptext.TYPE = 'SUBPROFILE') ")
+			.append(" ) ")
+		;
+		
+    
+    try
+	{
+		jdbcTemplate.batchUpdate(sql.toString(), new BatchPreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps, int i) throws SQLException {
+				ps.setInt(1, profile.get(i).getClient());
+				ps.setString(2, profile.get(i).getCountrycode());
+				ps.setInt(3, profile.get(i).getBusinessarea());
+				ps.setInt(4, profile.get(i).getProfile());
+				ps.setInt(5, profile.get(i).getSubprofile());
+
+			}
+			
+			@Override
+			public int getBatchSize() {
+				return profile.size();
+			}
+		});
+		
+		jdbcTemplate.update(sqlText.toString());
+		result.put("status", "Saved Successfully"); 
+		result.put("code", "200");
+	}
+	catch(Exception e)
+	{
+		result.put("status", "Error");
+		result.put("error", e.toString());
+		result.put("code", "500");
+	}
+	
+	return result;
+    
+	}
 	
 	
+	@Override
+	public HashMap<String, String> updateProfileTemplate(HashMap<String, ProfileView> profile) {
+		
+		HashMap<String, String> result = new HashMap<String, String>();
+		
+		HashMap<String, String> delResult = deleteProfileTemplate(Arrays.asList(profile.get("toChange")));
+		if(delResult.get("code") == "200")
+		{
+			result = insertProfileTemplate(Arrays.asList(profile.get("updated")));
+		}
+		else
+			result = delResult;
+		
+		return result;
+	}
 }

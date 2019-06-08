@@ -33,6 +33,11 @@ public interface CustomerProfileDAO {
 	public HashMap<String, String> insertProfileText(List<ProfileText> profiletext);
 	public HashMap<String, String> insertBrands(List<Brand> brand);
 	public List<Brand> getBrandsList();	
-	public List<ProfileView> getProfileTemplateList();
+	
+	public List<ProfileView> getProfileTemplateList(int client, String countrycode);
+	public List<HashMap<String, Object>> getProfileKeys();
+	public HashMap<String, String> insertProfileTemplate(List<ProfileView> profile);
+	public HashMap<String, String> updateProfileTemplate(HashMap<String, ProfileView> profile);
+	public HashMap<String, String> deleteProfileTemplate(List<ProfileView> profile);
 	
 }

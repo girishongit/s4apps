@@ -6,7 +6,7 @@
 
 <script>
 // @ is an alias to /src
-import ProfileConfig from "@/components/ProfileConfig.vue";
+import ProfileConfig from "@/components/ProfileConfigNew.vue";
 
 export default {
   name: "home",

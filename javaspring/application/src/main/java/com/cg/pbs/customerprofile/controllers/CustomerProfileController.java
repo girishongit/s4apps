@@ -99,6 +99,10 @@ public class CustomerProfileController
         return new ResponseEntity<HashMap<String, String>>(result, HttpStatus.OK);
     }
     
+    
+    
+    
+    // relook
     @PostMapping("/profile")
     public ResponseEntity<HashMap<String, String>> insertProfile(@RequestBody List<Profile> profile)
     {
@@ -134,11 +138,47 @@ public class CustomerProfileController
         return new ResponseEntity<List<Brand>>(brands, HttpStatus.OK);
     }*/
     
-    @GetMapping("/profilelist")
-    public ResponseEntity<List<ProfileView>> getProfileTemplateList(  )
+    @GetMapping("/profilekey")
+    public ResponseEntity<List<HashMap<String, Object>>> getProfileKey(  )
     {
-    	List<ProfileView> dataList = customerprofiledaoimpl.getProfileTemplateList();
+    	List<HashMap<String, Object>> dataList = customerprofiledaoimpl.getProfileKeys();
+        return new ResponseEntity<List<HashMap<String, Object>>>(dataList, HttpStatus.OK);
+    }
+    
+    @GetMapping("/profilelist")
+    public ResponseEntity<List<ProfileView>> getProfileTemplateList( )
+    {
+    	List<ProfileView> dataList = customerprofiledaoimpl.getProfileTemplateList( -1, "-1");
         return new ResponseEntity<List<ProfileView>>(dataList, HttpStatus.OK);
     }
+    
+    @GetMapping("/profilelist/{client}/{countrycode}")
+    public ResponseEntity<List<ProfileView>> getProfileTemplateListWithParm( @PathVariable int client, @PathVariable String countrycode )
+    {
+    	List<ProfileView> dataList = customerprofiledaoimpl.getProfileTemplateList( client, countrycode);
+        return new ResponseEntity<List<ProfileView>>(dataList, HttpStatus.OK);
+    }
+    
+    @PostMapping("/profilelist")
+    public ResponseEntity<HashMap<String, String>> insertProfileTemplate( @RequestBody List<ProfileView> profile )
+    {
+    	HashMap<String, String> dataList = customerprofiledaoimpl.insertProfileTemplate(profile);
+        return new ResponseEntity<HashMap<String, String>>(dataList, HttpStatus.OK);
+    }
+    
+    @PutMapping("/profilelist")
+    public ResponseEntity<HashMap<String, String>> updateProfileTemplate( @RequestBody HashMap<String,ProfileView> profile )
+    {
+    	HashMap<String, String> dataList = customerprofiledaoimpl.updateProfileTemplate(profile);
+        return new ResponseEntity<HashMap<String, String>>(dataList, HttpStatus.OK);
+    }
+    
+    @DeleteMapping("/profilelist")
+    public ResponseEntity<HashMap<String, String>> deleteProfileTemplate( @RequestBody List<ProfileView> profile )
+    {
+    	HashMap<String, String> dataList = customerprofiledaoimpl.deleteProfileTemplate(profile);
+        return new ResponseEntity<HashMap<String, String>>(dataList, HttpStatus.OK);
+    }
+ 
     
 }

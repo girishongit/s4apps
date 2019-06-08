@@ -11,6 +11,16 @@ public class ProfileText {
 	private String language;
 	private String type;
 	private String text;
+	
+	public ProfileText(int client, int id, String type, String text)
+	{
+		this.setClient(client);
+		this.setId(id);
+		this.setType(type);
+		this.setText(text);
+		this.setLanguage("EN");
+	}
+	
 	public int getClient() {
 		return client;
 	}

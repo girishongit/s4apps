@@ -34,8 +34,8 @@ public class CustomerProfileMapper implements RowMapper<CustomerProfile> {
 		 	
 		 	cp.setValidfrom(row.getDate("VALID_FROM"));
 		 	cp.setValidto(row.getDate("VALID_TO"));
-		 	cp.setModifiedby(row.getString("MODIFIED_AT"));
-		 	cp.setModifiedat(row.getString("MODIFIED_BY"));		 	
+		 	cp.setModifiedat(row.getString("MODIFIED_AT"));
+		 	cp.setModifiedby(row.getString("MODIFIED_BY"));		 	
 	     return cp;
 	    }
 

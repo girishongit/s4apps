@@ -40,7 +40,7 @@ public class HelloWorldControllerTest
         final InputStream inputStream = currentThread().getContextClassLoader().getResourceAsStream("expected.json");
 
         new RequestContextExecutor().execute(() -> {
-            mvc.perform(MockMvcRequestBuilders.get("/hello"))
+            mvc.perform(MockMvcRequestBuilders.get("/test"))
                     .andExpect(status().isOk())
                     .andExpect(content().json(
                             IOUtils.toString(inputStream, Charsets.UTF_8)));

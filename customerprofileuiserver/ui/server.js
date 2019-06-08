@@ -12,10 +12,9 @@ http
   .createServer(function(request, response) {
     try {
       var requestUrl = url.parse(request.url);
-
+      
       // need to use path.normalize so people can't access directories underneath baseDirectory
-      var fsPath = baseDirectory + path.normalize(requestUrl.pathname);
-      console.log(fsPath);
+      var fsPath = baseDirectory + path.normalize(requestUrl.pathname === '/' ? '/index.html' : requestUrl.pathname);
       var fileStream = fs.createReadStream(fsPath);
       fileStream.pipe(response);
       fileStream.on("open", function() {
