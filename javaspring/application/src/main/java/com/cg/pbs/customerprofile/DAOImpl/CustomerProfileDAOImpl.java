@@ -76,19 +76,45 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 		HashMap<String, String> result = new HashMap<String, String>();
 		
 		StringBuilder sql = new StringBuilder();
+		StringBuilder sql1 = new StringBuilder();
+		
 		sql
 		.append("UPDATE CUSTOMER.")
 		.append(escapeQuotes("customerprofile.db::Customer.CustomerProfile"))
 		.append(" SET COUNTRY_CODE = ").append(sqlString(country))
 		;
 		
-		StringBuilder sql1 = new StringBuilder();
 		sql1
 		.append("UPDATE CUSTOMER.")
 		.append(escapeQuotes("customerprofile.db::Customer.Profile"))
 		.append(" SET COUNTRY_CODE = ").append(sqlString(country))
 		;
 		
+		/*
+		sql
+		.append("UPDATE CUSTOMER.")
+		.append(escapeQuotes("customerprofile.db::Customer.ProfileText"))
+		.append(" SET CLIENT = 101 WHERE CLIENT = 100")
+		;
+		
+		sql1
+		.append("UPDATE CUSTOMER.")
+		.append(escapeQuotes("customerprofile.db::Customer.ProfileText"))
+		.append(" SET CLIENT = 100 WHERE CLIENT = 60")
+		;
+		
+		sql
+		.append("UPDATE CUSTOMER.")
+		.append(escapeQuotes("customerprofile.db::Customer.Profile"))
+		.append(" SET CLIENT = 101 WHERE CLIENT = 100")
+		;
+		
+		sql1
+		.append("UPDATE CUSTOMER.")
+		.append(escapeQuotes("customerprofile.db::Customer.Profile"))
+		.append(" SET CLIENT = 100 WHERE CLIENT = 60")
+		;
+		*/
 		try {
 			jdbcTemplate.update(sql.toString());
 			jdbcTemplate.update(sql1.toString());
