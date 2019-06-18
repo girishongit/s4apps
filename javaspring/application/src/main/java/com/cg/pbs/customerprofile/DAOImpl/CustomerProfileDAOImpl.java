@@ -451,9 +451,9 @@ public class CustomerProfileDAOImpl implements CustomerProfileDAO{
 			.append(" WHERE ")
 			.append(escapeQuotes("CUSTOMERID"))		.append(" = ")	.append(customerid) 		.append(" AND ")
 			.append(escapeQuotes("CLIENT"))			.append(" = ")	.append(client) 			.append(" AND ")
-			.append(escapeQuotes("SORG"))			.append(" = ")	.append(sqlString(sorg))	.append(" AND ")
-			.append(escapeQuotes("DELVCHL"))		.append(" = ")	.append(delvch)				.append(" AND ")
-			.append(escapeQuotes("DIV"))			.append(" = ")	.append(div)				.append(" AND ")
+			//.append(escapeQuotes("SORG"))			.append(" = ")	.append(sqlString(sorg))	.append(" AND ")
+			//.append(escapeQuotes("DELVCHL"))		.append(" = ")	.append(delvch)				.append(" AND ")
+			//.append(escapeQuotes("DIV"))			.append(" = ")	.append(div)				.append(" AND ")
 			.append(escapeQuotes("COUNTRY_CODE"))	.append(" = ")	.append(sqlString(countrycode))
 			;
 		
