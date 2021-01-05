@@ -76,7 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	CorsConfigurationSource corsConfigurationSource() {
 				
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080","https://cg-pbs-customerprofileui.cfapps.eu10.hana.ondemand.com", "https://saprouter-ccss.ccss.capgemini.com:3243", "https://webidetesting4339530-p1941230732trial.dispatcher.hanatrial.ondemand.com"));
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "https://webidetesting4339530-p1941230732trial.dispatcher.hanatrial.ondemand.com"));
 		configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","OPTIONS","PATCH","DELETE"));
 		configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "content-type", "Accept", "X-Requested-With", "remember-me", "x-xhr-logon"));
 		configuration.setAllowCredentials(true);
